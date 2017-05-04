@@ -3,54 +3,75 @@ canvas.width = 800;
 canvas.height = 800;
 var ctx = canvas.getContext('2d');
 
-var posx = 0;
-var posy = 0;
+var dx = 5;
+var dy = 5;
 
-ctx.beginPath();
-ctx.lineWidth = "1";
-ctx.strokeStyle = "red";
-ctx.fillStyle = "red";
-ctx.fillRect(0,0,20,20);
-ctx.stroke();
+var snek = {
+  head: {
+    x: 0,
+    y: 0
+  },
+  body: []
+};
+
+//ctx.beginPath();
+//ctx.lineWidth = "1";
+//ctx.strokeStyle = "red";
+
+//ctx.fillRect(0,0,20,20);
+//ctx.stroke();
 
 window.addEventListener('keydown', keyDown, false);
 
 function keyDown(e) {
   if (e.keyCode === 37) {
-    if (posx > 0) {
-      posx = posx - 20;
-      update();
+    if (snek.head.x > 0) {
+      //update();
     }
   }
   if (e.keyCode === 38) {
-    if (posy > 0) {
-      posy = posy - 20;
-      update();
+    if (snek.head.y > 0) {;
+      //update();
     }
   }
   if (e.keyCode === 39) {
-    if (posx < 780) {
-      posx = posx + 20;
-      update();
+    if (snek.head.x <= 780) {
+      console.log(snek.head.x);
+      //update();
     }
   }
   if (e.keyCode === 40) {
-    if (posy < 780) {
-      posy = posy + 20;
-      update();
+    if (snek.head.y <= 780) {
+      //update();
     }
   }
 }
 
-function update() {
-  console.log(posx);
-  console.log(posy);
-
+function init() {
   ctx.clearRect(0, 0, 800, 800);
-  ctx.fillRect(posx,posy,20,20);
-  ctx.beginPath();
-  ctx.lineWidth = "1";
-  ctx.strokeStyle = "red";
   ctx.fillStyle = "red";
+  ctx.fillRect(snek.head.x, snek.head.y, 20, 20);
+  //ctx.beginPath();
+  //ctx.lineWidth = "1";
+  //ctx.strokeStyle = "red";
+  //ctx.fillStyle = "red";
   ctx.stroke();
 }
+
+
+function tick() {
+  while (true) {
+    console.log('hey');
+    //setTimeout(update(), 2000);
+  }
+}
+
+
+function update() {
+  //requestAnimationFrame(update);
+  ctx.clearRect(0, 0, 800, 800);
+  ctx.fillRect(snek.head.x + dx, snek.head.y + dy, 20, 20);
+}
+
+init();
+tick();
