@@ -3,7 +3,7 @@ var ctx = canvas.getContext('2d');
 canvas.width = 600;
 canvas.height = 600;
 
-var fps = 30;
+var fps = 20;
 var block_dimension = 10;
 
 var boundaries = {
@@ -33,6 +33,8 @@ snek.run = function() {
 }
 
 function end() {
+  snek.dx = 0;
+  snek.dy = 0;
   clearInterval(snek._intervalId);
   init();
 }
@@ -66,6 +68,8 @@ function init() {
   ctx.clearRect(0, 0, 600, 600);
   ctx.fillStyle = "red";
   ctx.fillRect(snek.head.x, snek.head.y, 10, 10);
+  ctx.fillStyle = "white";
+  ctx.fillRect(food.x, food.y, 10, 10);
   ctx.stroke();
 }
 
@@ -80,7 +84,9 @@ function update() {
     ctx.clearRect(0, 0, 600, 600);
     ctx.fillStyle = "red";
     ctx.fillRect(posx, posy, block_dimension, block_dimension);
-    
+    ctx.fillStyle = "white";
+    ctx.fillRect(food.x, food.y, 10, 10);
+
   } else {
     end();
   }
