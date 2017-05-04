@@ -1,11 +1,10 @@
 var canvas = document.querySelector('canvas');
 var ctx = canvas.getContext('2d');
-canvas.width = 500;
-canvas.height = 500;
+canvas.width = 600;
+canvas.height = 600;
 
 var fps = 10;
 var block_dimension = 10;
-
 
 var snek = {
   head: {
