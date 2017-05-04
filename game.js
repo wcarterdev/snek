@@ -20,13 +20,6 @@ snek.run = function() {
   update();
 }
 
-//ctx.beginPath();
-//ctx.lineWidth = "1";
-//ctx.strokeStyle = "red";
-
-//ctx.fillRect(0,0,20,20);
-//ctx.stroke();
-
 window.addEventListener('keydown', keyDown, false);
 
 function keyDown(e) {
@@ -56,25 +49,14 @@ function keyDown(e) {
   }
 }
 
-function test() {
-  console.log('test');
-}
-
-setInterval(snek.run, 1000 / fps);
-
 function init() {
   ctx.clearRect(0, 0, 800, 800);
   ctx.fillStyle = "red";
   ctx.fillRect(snek.head.x, snek.head.y, 10, 10);
-  //ctx.beginPath();
-  //ctx.lineWidth = "1";
-  //ctx.strokeStyle = "red";
-  //ctx.fillStyle = "red";
   ctx.stroke();
 }
 
 function update() {
-  //requestAnimationFrame(update);
   var posx = snek.head.x + snek.dx;
   var posy = snek.head.y + snek.dy;
   snek.head.x += snek.dx;
@@ -83,5 +65,7 @@ function update() {
   ctx.fillStyle = "red";
   ctx.fillRect(posx, posy, block_dimension, block_dimension);
 }
+
+setInterval(snek.run, 1000 / fps);
 
 init();
