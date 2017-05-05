@@ -31,7 +31,8 @@ var snek = {
   body: [],
   dx: 0,
   dy: 0,
-  dir: undefined
+  dir: undefined,
+  color: "#00ff2b"
 };
 
 snek.run = function() 
@@ -90,7 +91,7 @@ function init()
   snek.head.x = 300,
   snek.head.y = 300;
   ctx.clearRect(0, 0, 600, 600);
-  ctx.fillStyle = "red";
+  ctx.fillStyle = snek.color;
   ctx.fillRect(snek.head.x, snek.head.y, block_dimension, block_dimension);
   ctx.fillStyle = "white";
   ctx.fillRect(food.x, food.y, block_dimension, block_dimension);
@@ -106,12 +107,12 @@ function drawSnek()
   snek.head.x += snek.dx;
   snek.head.y += snek.dy;
   ctx.clearRect(0, 0, 600, 600);
-  ctx.fillStyle = "red";
+  ctx.fillStyle = snek.color;
   ctx.fillRect(posx, posy, block_dimension, block_dimension);
   for (var i = 0; i < snek.body.length; i++) {
     var nposx = prevx;
     var nposy = prevy;
-    ctx.fillStyle = "red";
+    ctx.fillStyle = snek.color;
     ctx.fillRect(nposx, nposy, block_dimension, block_dimension);  
     prevx = snek.body[i].x;
     prevy = snek.body[i].y;
