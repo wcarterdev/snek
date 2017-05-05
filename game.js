@@ -14,10 +14,7 @@ var boundaries = {
   down: canvas.height - block_dimension
 };
 
-var food = {
-  x: 100,
-  y: 110
-}
+var food = {}
 
 var snek = {
   head: {
@@ -83,7 +80,8 @@ function keyDown(e)
 function init() 
 {
   snek._intervalId = setInterval(snek.run, 1000/fps);
-  console.log('called');
+  food.x = Math.floor(Math.random() * (canvas.width / block_dimension)) * block_dimension;
+  food.y = Math.floor(Math.random() * (canvas.width / block_dimension)) * block_dimension;
   snek.head.x = 300,
   snek.head.y = 300;
   ctx.clearRect(0, 0, 600, 600);
