@@ -6,7 +6,10 @@ canvas.height = 600;
 var fps = 20;
 var block_dimension = 10;
 var velocity = 10;
+
 var pivot = false;
+var pivot_x = undefined;
+var pivot_y = undefined;
 
 var boundaries = {
   left: 0,
@@ -52,7 +55,8 @@ function keyDown(e)
     if (snek.dir != 'right') {
       snek.dx = -1 * velocity;
       snek.dy = 0;
-      snek.dir = 'left';      
+      snek.dir = 'left';
+      pivot = true;      
     }
   }
   if (e.keyCode === 38) {
@@ -60,6 +64,7 @@ function keyDown(e)
       snek.dx = 0;
       snek.dy = -1 * velocity;
       snek.dir = 'up';
+      pivot = true;
     }
   }
   if (e.keyCode === 39) {
@@ -67,6 +72,7 @@ function keyDown(e)
       snek.dx = velocity;
       snek.dy = 0;
       snek.dir = 'right';
+      pivot = true;
     }
   }
   if (e.keyCode === 40) {
@@ -74,13 +80,14 @@ function keyDown(e)
       snek.dx = 0;
       snek.dy = velocity;
       snek.dir = 'down';
+      pivot = true;
     }
   }
 }
 
 function init() 
 {
-  snek._intervalId = setInterval(snek.run, 1000 / fps);
+  snek._intervalId = setInterval(snek.run, 1000/fps);
   console.log('called');
   snek.head.x = 300,
   snek.head.y = 300;
@@ -100,7 +107,10 @@ function drawSnek()
   snek.head.y += snek.dy;
   ctx.clearRect(0, 0, 600, 600);
   ctx.fillStyle = "red";
-  ctx.fillRect(posx, posy, block_dimension, block_dimension); 
+  ctx.fillRect(posx, posy, block_dimension, block_dimension);
+  for (var i = 0; i < snek.body.length; i++) {
+    
+  } 
 }
 
 function drawFood()
@@ -117,6 +127,7 @@ function update()
     if (snek.head.x === food.x && snek.head.y === food.y) {  
       food.x = Math.floor(Math.random() * (canvas.height / block_dimension)) * block_dimension;
       food.y = Math.floor(Math.random() * (canvas.width / block_dimension)) * block_dimension;
+      snek.
       drawSnek();
       drawFood();
     } else {
