@@ -7,10 +7,6 @@ var fps = 20;
 var block_dimension = 10;
 var velocity = 10;
 
-var pivots = {
-
-}
-
 var boundaries = {
   left: 0,
   up: 0,
