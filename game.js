@@ -7,9 +7,9 @@ var fps = 20;
 var block_dimension = 10;
 var velocity = 10;
 
-var pivot = false;
-var pivot_x = undefined;
-var pivot_y = undefined;
+var pivots = {
+
+}
 
 var boundaries = {
   left: 0,
@@ -44,6 +44,7 @@ function end()
   snek.dx = 0;
   snek.dy = 0;
   clearInterval(snek._intervalId);
+  snek.body = [];
   init();
 }
 
@@ -56,7 +57,6 @@ function keyDown(e)
       snek.dx = -1 * velocity;
       snek.dy = 0;
       snek.dir = 'left';
-      pivot = true;      
     }
   }
   if (e.keyCode === 38) {
@@ -64,7 +64,6 @@ function keyDown(e)
       snek.dx = 0;
       snek.dy = -1 * velocity;
       snek.dir = 'up';
-      pivot = true;
     }
   }
   if (e.keyCode === 39) {
@@ -72,7 +71,6 @@ function keyDown(e)
       snek.dx = velocity;
       snek.dy = 0;
       snek.dir = 'right';
-      pivot = true;
     }
   }
   if (e.keyCode === 40) {
@@ -109,8 +107,49 @@ function drawSnek()
   ctx.fillStyle = "red";
   ctx.fillRect(posx, posy, block_dimension, block_dimension);
   for (var i = 0; i < snek.body.length; i++) {
-    
+    var bodyposx = snek.body[i].x + snek.dx;
+    var bodyposy = snek.body[i].y + snek.dy;
+    snek.body[i].x += snek.dx;
+    snek.body[i].y += snek.dy
+    ctx.fillStyle = "red";
+    ctx.fillRect(bodyposx, bodyposy, block_dimension, block_dimension);  
   } 
+}
+
+function addSnekBody()
+{
+  var startx = undefined;
+  var starty = undefined;
+  var endx = undefined;
+  var endy = undefined;
+
+  if (snek.body.length < 1) {
+    startx = snek.head.x;
+    starty = snek.head.y;   
+  } else {
+    startx = snek.body[snek.body.length - 1].x;
+    starty = snek.body[snek.body.length - 1].y;
+  }
+
+  if (snek.dir === 'left') {
+    endx = startx + block_dimension;
+    endy = starty;    
+  } 
+  else if (snek.dir === 'up') {
+    console.log('test');
+    endx = startx;
+    endy = starty + block_dimension;
+  }
+  else if (snek.dir === 'right') {
+    endx = startx - block_dimension;
+    endy = starty;
+  }
+  else if (snek.dir === 'down') {
+    endx = startx;
+    endy = starty - block_dimension;
+  }
+
+  snek.body.push({x: endx, y: endy});
 }
 
 function drawFood()
@@ -127,7 +166,7 @@ function update()
     if (snek.head.x === food.x && snek.head.y === food.y) {  
       food.x = Math.floor(Math.random() * (canvas.height / block_dimension)) * block_dimension;
       food.y = Math.floor(Math.random() * (canvas.width / block_dimension)) * block_dimension;
-      snek.
+      addSnekBody();
       drawSnek();
       drawFood();
     } else {
