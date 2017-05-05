@@ -99,6 +99,8 @@ function init()
 
 function drawSnek() 
 { 
+  var prevx = snek.head.x;
+  var prevy = snek.head.y;
   var posx = snek.head.x + snek.dx;
   var posy = snek.head.y + snek.dy;
   snek.head.x += snek.dx;
@@ -107,12 +109,14 @@ function drawSnek()
   ctx.fillStyle = "red";
   ctx.fillRect(posx, posy, block_dimension, block_dimension);
   for (var i = 0; i < snek.body.length; i++) {
-    var bodyposx = snek.body[i].x + snek.dx;
-    var bodyposy = snek.body[i].y + snek.dy;
-    snek.body[i].x += snek.dx;
-    snek.body[i].y += snek.dy
+    var nposx = prevx;
+    var nposy = prevy;
     ctx.fillStyle = "red";
-    ctx.fillRect(bodyposx, bodyposy, block_dimension, block_dimension);  
+    ctx.fillRect(nposx, nposy, block_dimension, block_dimension);  
+    prevx = snek.body[i].x;
+    prevy = snek.body[i].y;
+    snek.body[i].x = nposx;
+    snek.body[i].y = nposy;
   } 
 }
 
@@ -160,6 +164,11 @@ function drawFood()
 
 function update() 
 {
+  for (var i = 0; i < snek.body.length; i++) {
+    if (snek.head.x == snek.body[i].x && snek.head.y == snek.body[i].y) {
+      end();
+    }
+  }
   if (snek.head.x >= boundaries.left && snek.head.y >= boundaries.up
     && snek.head.x <= boundaries.right && snek.head.y <= boundaries.down) {
 
