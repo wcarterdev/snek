@@ -6,6 +6,7 @@ canvas.height = 600;
 var fps = 20;
 var block_dimension = 10;
 var velocity = 10;
+var pivot = false;
 
 var boundaries = {
   left: 0,
@@ -48,24 +49,32 @@ window.addEventListener('keydown', keyDown, false);
 function keyDown(e) 
 {
   if (e.keyCode === 37) {
-    snek.dx = -1 * velocity;
-    snek.dy = 0;
-    snek.dir = 'left';
+    if (snek.dir != 'right') {
+      snek.dx = -1 * velocity;
+      snek.dy = 0;
+      snek.dir = 'left';      
+    }
   }
   if (e.keyCode === 38) {
-    snek.dx = 0;
-    snek.dy = -1 * velocity;
-    snek.dir = 'up';
+    if (snek.dir != 'down') {
+      snek.dx = 0;
+      snek.dy = -1 * velocity;
+      snek.dir = 'up';
+    }
   }
   if (e.keyCode === 39) {
-    snek.dx = velocity;
-    snek.dy = 0;
-    snek.dir = 'right';
+    if (snek.dir != 'left') {
+      snek.dx = velocity;
+      snek.dy = 0;
+      snek.dir = 'right';
+    }
   }
   if (e.keyCode === 40) {
-    snek.dx = 0;
-    snek.dy = velocity;
-    snek.dir = 'down';
+    if (snek.dir != 'up') {
+      snek.dx = 0;
+      snek.dy = velocity;
+      snek.dir = 'down';
+    }
   }
 }
 
