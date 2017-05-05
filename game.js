@@ -24,7 +24,7 @@ var snek = {
   body: [],
   dx: 0,
   dy: 0,
-  dir: undefined,
+  dir: 'none',
   color: "#00ff2b"
 };
 
@@ -80,6 +80,7 @@ function keyDown(e)
 function init() 
 {
   snek._intervalId = setInterval(snek.run, 1000/fps);
+  snek.dir = 'none';
   food.x = Math.floor(Math.random() * (canvas.width / block_dimension)) * block_dimension;
   food.y = Math.floor(Math.random() * (canvas.width / block_dimension)) * block_dimension;
   snek.head.x = 300,
