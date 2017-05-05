@@ -5,6 +5,7 @@ canvas.height = 600;
 
 var fps = 20;
 var block_dimension = 10;
+var velocity = 10;
 
 var boundaries = {
   left: 0,
@@ -25,14 +26,17 @@ var snek = {
   },
   body: [],
   dx: 0,
-  dy: 0
+  dy: 0,
+  dir: undefined
 };
 
-snek.run = function() {
+snek.run = function() 
+{
   update();
 }
 
-function end() {
+function end() 
+{
   snek.dx = 0;
   snek.dy = 0;
   clearInterval(snek._intervalId);
@@ -41,39 +45,46 @@ function end() {
 
 window.addEventListener('keydown', keyDown, false);
 
-function keyDown(e) {
+function keyDown(e) 
+{
   if (e.keyCode === 37) {
-    snek.dx = -10;
+    snek.dx = -1 * velocity;
     snek.dy = 0;
+    snek.dir = 'left';
   }
   if (e.keyCode === 38) {
     snek.dx = 0;
-    snek.dy = -10;
+    snek.dy = -1 * velocity;
+    snek.dir = 'up';
   }
   if (e.keyCode === 39) {
-    snek.dx = 10;
+    snek.dx = velocity;
     snek.dy = 0;
+    snek.dir = 'right';
   }
   if (e.keyCode === 40) {
     snek.dx = 0;
-    snek.dy = 10;
+    snek.dy = velocity;
+    snek.dir = 'down';
   }
 }
 
-function init() {
+function init() 
+{
   snek._intervalId = setInterval(snek.run, 1000 / fps);
   console.log('called');
   snek.head.x = 300,
   snek.head.y = 300;
   ctx.clearRect(0, 0, 600, 600);
   ctx.fillStyle = "red";
-  ctx.fillRect(snek.head.x, snek.head.y, 10, 10);
+  ctx.fillRect(snek.head.x, snek.head.y, block_dimension, block_dimension);
   ctx.fillStyle = "white";
-  ctx.fillRect(food.x, food.y, 10, 10);
+  ctx.fillRect(food.x, food.y, block_dimension, block_dimension);
   ctx.stroke();
 }
 
-function update() {
+function update() 
+{
   if (snek.head.x >= boundaries.left && snek.head.y >= boundaries.up
     && snek.head.x <= boundaries.right && snek.head.y <= boundaries.down) {
 
@@ -84,12 +95,21 @@ function update() {
     ctx.clearRect(0, 0, 600, 600);
     ctx.fillStyle = "red";
     ctx.fillRect(posx, posy, block_dimension, block_dimension);
-    ctx.fillStyle = "white";
-    ctx.fillRect(food.x, food.y, 10, 10);
+
+    if (snek.head.x === food.x && snek.head.y === food.y) {
+      food.x = Math.floor(Math.random() * (canvas.height / block_dimension)) * block_dimension;
+      food.y = Math.floor(Math.random() * (canvas.width / block_dimension)) * block_dimension;
+      ctx.fillStyle = "white";
+      ctx.fillRect(food.x, food.y, block_dimension, block_dimension);
+    } else {
+      ctx.fillStyle = "white";
+      ctx.fillRect(food.x, food.y, block_dimension, block_dimension);
+    }
 
   } else {
     end();
   }
+
 }
 
 init();
