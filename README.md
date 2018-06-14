@@ -1,3 +1,3 @@
 # snek
 
-just snek in the browser
+play snake in your browser (html5 canvas)
